@@ -1,0 +1,91 @@
+[
+  {
+    "user_id": 1,
+    "name": "user1",
+    "age": 25,
+    "programming_skills": [
+      {
+        "item": "golang"
+      },
+      {
+        "item": "c++"
+      }
+    ]
+  },
+  {
+    "user_id": 2,
+    "name": "user2",
+    "age": 22,
+    "programming_skills": [
+      {
+        "item": "java"
+      },
+      {
+        "item": "kotlin"
+      }
+    ]
+  },
+  {
+    "user_id": 3,
+    "name": "user3",
+    "age": 32,
+    "programming_skills": [
+      {
+        "item": "java"
+      },
+      {
+        "item": "c#"
+      },
+      {
+        "item": "javascript"
+      }
+    ]
+  },
+  {
+    "user_id": 4,
+    "name": "user4",
+    "age": 35,
+    "programming_skills": [
+      {
+        "item": "ruby"
+      },
+      {
+        "item": "scala"
+      },
+      {
+        "item": "javascript"
+      }
+    ]
+  },
+  {
+    "user_id": 5,
+    "name": "user5",
+    "age": 42,
+    "programming_skills": [
+      {
+        "item": "golang"
+      },
+      {
+        "item": "python"
+      },
+      {
+        "item": "c"
+      },
+      {
+        "item": "perl"
+      },
+      {
+        "item": "c++"
+      },
+      {
+        "item": "scala"
+      },
+      {
+        "item": "rust"
+      },
+      {
+        "item": "javascript"
+      }
+    ]
+  }
+]

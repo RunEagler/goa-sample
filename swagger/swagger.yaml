@@ -1,0 +1,338 @@
+consumes:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+definitions:
+  Skill:
+    example:
+      item: bs6vrw28ln
+    properties:
+      item:
+        description: skill name
+        example: bs6vrw28ln
+        maxLength: 20
+        type: string
+    title: Skill
+    type: object
+  User:
+    description: request body type
+    example:
+      age: 8.942812999174912e+18
+      name: Vero et sequi assumenda.
+      programming_skills:
+      - item: bs6vrw28ln
+      - item: bs6vrw28ln
+      - item: bs6vrw28ln
+      user_id: 5.295941926282979e+18
+    properties:
+      age:
+        description: user age
+        example: 8.942812999174912e+18
+        format: int64
+        type: integer
+      name:
+        description: user name
+        example: Vero et sequi assumenda.
+        type: string
+      programming_skills:
+        description: programming skills
+        example:
+        - item: bs6vrw28ln
+        - item: bs6vrw28ln
+        - item: bs6vrw28ln
+        items:
+          $ref: '#/definitions/Skill'
+        type: array
+      user_id:
+        description: user id
+        example: 5.295941926282979e+18
+        format: int64
+        type: integer
+    required:
+    - name
+    - age
+    - programming_skills
+    title: User
+    type: object
+  UserResponse:
+    description: response body type (default view)
+    example:
+      age: 7.544894084894302e+16
+      name: Dignissimos sed aut aut.
+      programming_skills:
+      - item: bs6vrw28ln
+      - item: bs6vrw28ln
+      user_id: 5.492772089347765e+18
+    properties:
+      age:
+        description: user age
+        example: 7.544894084894302e+16
+        format: int64
+        type: integer
+      name:
+        description: user name
+        example: Dignissimos sed aut aut.
+        type: string
+      programming_skills:
+        description: programming_skills
+        example:
+        - item: bs6vrw28ln
+        - item: bs6vrw28ln
+        items:
+          $ref: '#/definitions/Skill'
+        type: array
+      user_id:
+        description: user id
+        example: 5.492772089347765e+18
+        format: int64
+        type: integer
+    required:
+    - user_id
+    - name
+    - age
+    - programming_skills
+    title: 'Mediatype identifier: application/vnd.user.response+json; view=default'
+    type: object
+  UserResponseCollection:
+    description: UserResponseCollection is the media type for an array of UserResponse
+      (default view)
+    example:
+    - age: 7.544894084894302e+16
+      name: Dignissimos sed aut aut.
+      programming_skills:
+      - item: bs6vrw28ln
+      - item: bs6vrw28ln
+      user_id: 5.492772089347765e+18
+    - age: 7.544894084894302e+16
+      name: Dignissimos sed aut aut.
+      programming_skills:
+      - item: bs6vrw28ln
+      - item: bs6vrw28ln
+      user_id: 5.492772089347765e+18
+    items:
+      $ref: '#/definitions/UserResponse'
+    title: 'Mediatype identifier: application/vnd.user.response+json; type=collection;
+      view=default'
+    type: array
+host: localhost:8080
+info:
+  description: goa sample
+  title: goa sample
+  version: ""
+paths:
+  /organizations/{organizationID}/users:
+    get:
+      description: get user list
+      operationId: user#list
+      parameters:
+      - description: dummy query parameter
+        in: query
+        maxLength: 10
+        name: dummy_key
+        required: false
+        type: string
+      - description: filter for user age
+        in: query
+        name: max_age
+        required: true
+        type: integer
+      - description: organization ID
+        in: path
+        name: organizationID
+        required: true
+        type: integer
+      - description: authentication token
+        in: header
+        name: TOKEN
+        required: false
+        type: string
+      produces:
+      - application/vnd.user.response+json; type=collection
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/UserResponseCollection'
+        "500":
+          description: Internal Server Error
+      schemes:
+      - http
+      summary: list user
+      tags:
+      - user
+    post:
+      description: create user
+      operationId: user#create
+      parameters:
+      - description: dummy query parameter
+        in: query
+        maxLength: 10
+        name: dummy_key
+        required: false
+        type: string
+      - description: organization ID
+        in: path
+        name: organizationID
+        required: true
+        type: integer
+      - description: authentication token
+        in: header
+        name: TOKEN
+        required: false
+        type: string
+      - description: request body type
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      produces:
+      - application/vnd.user.response+json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/UserResponse'
+        "500":
+          description: Internal Server Error
+      schemes:
+      - http
+      summary: create user
+      tags:
+      - user
+  /organizations/{organizationID}/users/{userID}:
+    delete:
+      description: delete user
+      operationId: user#delete
+      parameters:
+      - description: dummy query parameter
+        in: query
+        maxLength: 10
+        name: dummy_key
+        required: false
+        type: string
+      - description: organization ID
+        in: path
+        name: organizationID
+        required: true
+        type: integer
+      - description: userID
+        in: path
+        name: userID
+        required: true
+        type: integer
+      - description: authentication token
+        in: header
+        name: TOKEN
+        required: false
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      schemes:
+      - http
+      summary: delete user
+      tags:
+      - user
+    get:
+      description: get user detail
+      operationId: user#retrieve
+      parameters:
+      - description: dummy query parameter
+        in: query
+        maxLength: 10
+        name: dummy_key
+        required: false
+        type: string
+      - description: organization ID
+        in: path
+        name: organizationID
+        required: true
+        type: integer
+      - description: userID
+        in: path
+        name: userID
+        required: true
+        type: integer
+      - description: authentication token
+        in: header
+        name: TOKEN
+        required: false
+        type: string
+      produces:
+      - application/vnd.user.response+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/UserResponse'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      schemes:
+      - http
+      summary: retrieve user
+      tags:
+      - user
+    put:
+      description: update user
+      operationId: user#update
+      parameters:
+      - description: dummy query parameter
+        in: query
+        maxLength: 10
+        name: dummy_key
+        required: false
+        type: string
+      - description: organization ID
+        in: path
+        name: organizationID
+        required: true
+        type: integer
+      - description: userID
+        in: path
+        name: userID
+        required: true
+        type: integer
+      - description: authentication token
+        in: header
+        name: TOKEN
+        required: false
+        type: string
+      - description: request body type
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      schemes:
+      - http
+      summary: update user
+      tags:
+      - user
+produces:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+responses:
+  NoContent:
+    description: No Content
+  NotFound:
+    description: Not Found
+schemes:
+- http
+swagger: "2.0"
